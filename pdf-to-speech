@@ -1,0 +1,22 @@
+# -*- coding: utf-8 -*-
+# you will need two python libraries: -1. pyttx3 and PyPDF2
+
+import pyttsx3
+import PyPDF2
+
+book=open('Path of your pdf file ','rb')
+
+pdfreader=PyPDF2.PdfFileReader(book)
+
+pages=pdfreader.numPages
+print(pages)
+#select one page that you want the code to narrate
+page=pdfreader.getPage(30)
+
+text=page.extractText()
+
+speaker=pyttsx3.init()
+
+speaker.say(text)
+
+speaker.runAndWait()
