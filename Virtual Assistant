@@ -1,0 +1,58 @@
+
+
+import speech_recognition as sr,pyttsx3,pywhatkit,wikipedia,datetime,pyjokes
+
+listener=sr.Recognizer()
+
+engine=pyttsx3.init()
+
+def talk(text):
+    engine.say(text)
+    engine.runAndWait()
+    
+def take_command():
+    try: 
+        with sr.Microphone(device_index=0) as source:
+            print("listening...")
+            command=listener.recognize_google(source)
+            command=command.lower()
+            if 'alexa' in command:
+                command=command.replace('alexa', '')
+                print(command)
+    except:
+        pass
+    return command
+def run_alexa():
+    command=take_command()
+    print(command)
+    if 'play' in command:
+        song=command.replace('play','')
+        talk("playing" + song)
+        pywhatkit.playonyt(song)
+    elif 'date' in command:
+        time=str(datetime.datetime.now())
+        talk(time)
+    elif 'who is' in command:
+        result=command.replace('who is' ,'')
+        info=wikipedia.summary(result, 1)
+        print(info)
+        talk(info)
+    elif 'what is' in command:
+        result=command.replace('what is' ,'')
+        info=wikipedia.summary(result, 1)
+        print(info)
+        talk(info)
+    elif 'time' in command:
+        time=str(datetime.datetime.now())
+        talk(time)
+    elif 'are you single' in command:
+        talk("no my brother!! i am in relationship with your best friend")
+    elif 'tell me a joke' in command:
+        talk(pyjokes.get_joke())
+    else :
+        talk("please give a valid command")
+        
+while True:
+    run_alexa()
+
+
