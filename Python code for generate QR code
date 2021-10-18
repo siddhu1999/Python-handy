@@ -1,6 +1,6 @@
 import qrcode
 
-img = qrcode.make('test text')
+img = qrcode.make('tel:1608528383u38')
 
 print(type(img))
 print(img.size)
